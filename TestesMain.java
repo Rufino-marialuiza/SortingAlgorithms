@@ -27,6 +27,9 @@ public class TestesMain {
             executarExperimentoOrdenacao("Ordenado", baseOrdenado, totalExecucoes, warmUp);
             executarExperimentoOrdenacao("Inverso", baseInverso, totalExecucoes, warmUp);
             executarExperimentoOrdenacao("Parcialmente Ordenado", baseParcial, totalExecucoes, warmUp);
+
+            // teste buscas
+            executarExperimentoBusca(baseOrdenado, totalExecucoes, warmUp);
         }
 	}
 	
@@ -75,6 +78,45 @@ public class TestesMain {
 
             long mediaTempoMs = (somaTempos / (total - warmUp)) / 1_000_000;
             System.out.printf("Algoritmo: %-18s | Média: %6d ms\n", alg, mediaTempoMs);
+        }
+    }
+
+    private static void executarExperimentoBusca(int[] ordenado, int total, int warmUp) {
+        System.out.println("\n--- Busca pelo elemento -1 (ausente) ---");
+        String[] nomes = {"Linear Iterativa", "Linear Recursiva", "Binaria Iterativa",
+                        "Binaria Recursiva", "Linear Duas Pontas"};
+        final int alvo = -1;
+
+        for (String alg : nomes) {
+            long soma = 0;
+            boolean estouro = false;
+
+            for (int i = 0; i < total; i++) {
+                int res = -2;
+                long inicio = System.nanoTime();
+                try {
+                    switch (alg) {
+                        case "Linear Iterativa":    res = Algoritmos.buscaLinear(ordenado, alvo); break;
+                        case "Linear Recursiva":    res = Algoritmos.buscaLinearRec(ordenado, alvo, 0); break;
+                        case "Binaria Iterativa":   res = Algoritmos.buscaBinaria(ordenado, alvo); break;
+                        case "Binaria Recursiva":   res = Algoritmos.buscaBinariaRec(ordenado, alvo, 0, ordenado.length - 1); break;
+                        case "Linear Duas Pontas":  res = Algoritmos.buscaLinearDuasPontas(ordenado, alvo); break;
+                    }
+                } catch (StackOverflowError e) {
+                    estouro = true;
+                    break; // para as execuções desse algoritmo
+                }
+                long fim = System.nanoTime();
+
+                if (res != -1) System.out.println("ERRO: " + alg + " retornou " + res);
+                if (i >= warmUp) soma += (fim - inicio);
+            }
+
+            if (estouro) {
+                System.out.printf("Algoritmo: %-20s | StackOverflowError (n = %d)%n", alg, ordenado.length);
+            } else {
+                System.out.printf("Algoritmo: %-20s | Média: %10d ns%n", alg, soma / (total - warmUp));
+            }
         }
     }
 

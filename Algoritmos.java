@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Algoritmos {
 	
-	public void insertion(int[] v) {
+	public static void insertion(int[] v) {
 		int n=v.length;
 		
 		for(int i=1;i<n-1;i++) {
@@ -19,7 +19,7 @@ public class Algoritmos {
 		}
 	}
 	
-	public void mergeSort(int[] v, int inicio, int fim) {
+	public static void mergeSort(int[] v, int inicio, int fim) {
         if (v.length == 1) return;
         else {
         	int meio = inicio + (fim - inicio) / 2;
@@ -30,7 +30,7 @@ public class Algoritmos {
         }
     }
 
-    private void merge(int[] v, int inicio, int meio, int fim) {
+    private static void merge(int[] v, int inicio, int meio, int fim) {
     	int n1 = meio - inicio + 1;
         int n2 = fim - meio;
 
@@ -63,7 +63,7 @@ public class Algoritmos {
     }
     
     
-    public void quickSort (int[] v, int left, int right) {
+    public static void quickSort (int[] v, int left, int right) {
         if (left < right) {
             int pivot = partition(v, left, right);
             quickSort(v, left, pivot - 1);
@@ -71,7 +71,7 @@ public class Algoritmos {
         }
     }
 
-    private int partition(int[] v, int left, int right) {
+    private static int partition(int[] v, int left, int right) {
         int p = v[left];
         int i = left + 1;
         int j = right;
@@ -90,13 +90,13 @@ public class Algoritmos {
         return j;
     }
 
-    private void swap(int[] v, int i, int j) {
+    private static void swap(int[] v, int i, int j) {
         int temp = v[i];
         v[i] = v[j];
         v[j] = temp;
     }
     
-    public void quickSortShuffle(int[] v) { //embaralha
+    public static void quickSortShuffle(int[] v) { //embaralha
         Random rand = new Random();
         
         for (int i = v.length - 1; i > 0; i--) {
@@ -107,4 +107,65 @@ public class Algoritmos {
         }
         quickSort(v, 0, v.length - 1);
     }
+    
+    public static int buscaLinear(int[] v, int x) {
+        for (int i = 0; i < v.length; i++) {
+            if (v[i] == x){
+                 return i;}
+        }
+        return -1;
+    }
+
+    // Busca linear recursiva
+    public static int buscaLinearRec(int[] v, int x, int i) {
+        if (i >= v.length){
+             return -1;}
+        if (v[i] == x){
+             return i;}
+        return buscaLinearRec(v, x, i + 1);
+    }
+
+    // Busca binária iterativa
+    public static int buscaBinaria(int[] v, int x) {
+        int esq = 0, dir = v.length - 1;
+        while (esq <= dir) {
+            int meio = esq + (dir - esq) / 2;
+
+            if (v[meio] == x) {
+                return meio;}
+            if (v[meio] < x){
+                 esq = meio + 1;}
+            else {dir = meio - 1;}
+        }
+        return -1;
+    }
+
+    // Busca binária recursiva
+    public static int buscaBinariaRec(int[] v, int x, int esq, int dir) {
+        if (esq > dir) {
+            return -1;}
+        int meio = esq + (dir - esq) / 2;
+
+        if (v[meio] == x) {
+            return meio;}
+        if (v[meio] < x){
+             return buscaBinariaRec(v, x, meio + 1, dir);}
+        return buscaBinariaRec(v, x, esq, meio - 1);
+    }
+
+    // Busca linear iterativa de duas pontas
+    public static int buscaLinearDuasPontas(int[] v, int x) {
+        int i = 0, j = v.length - 1;
+        while (i <= j) {
+            if (v[i] == x) 
+                {return i;}
+            if (v[j] == x){
+                 return j;}
+            i++;
+            j--;
+        }
+        return -1;
+    }
+
+        
 }
