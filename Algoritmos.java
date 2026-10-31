@@ -3,6 +3,78 @@ package ordenaçao;
 import java.util.Random;
 
 public class Algoritmos {
+    public static void bubbleSort(int[] vetor) {
+        int n = vetor.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (vetor[j] > vetor[j + 1]) {
+                    swap(vetor, j, j + 1);
+                }
+            }
+        }
+    }
+
+    public static void bubbleSortOtimizado(int[] vetor) {
+        int n = vetor.length;
+        boolean trocou;
+
+        for (int i = 0; i < n - 1; i++) {
+            trocou = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (vetor[j] > vetor[j + 1]) {
+                    swap(vetor, j, j + 1);
+
+                    trocou = true;
+                }
+            }
+
+            if (!trocou) {
+                break;
+            }
+        }
+    }
+
+    public static void selectionSort(int[] vetor) {
+        int n = vetor.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int menor = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (vetor[j] < vetor[menor]) {
+                    menor = j;
+                }
+            }
+
+            swap(vetor, i, menor);
+        }
+    }
+
+    public static void selectionSortEstavel(int[] vetor) {
+        int n = vetor.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int menor = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (vetor[j] < vetor[menor]) {
+                    menor = j;
+                }
+            }
+
+            int temp = vetor[menor];
+
+            // Desloca os elementos para a direita
+            while (menor > i) {
+                vetor[menor] = vetor[menor - 1];
+                menor--;
+            }
+
+            vetor[i] = temp;
+        }
+    }
 	
 	public static void insertion(int[] v) {
 		int n=v.length;
