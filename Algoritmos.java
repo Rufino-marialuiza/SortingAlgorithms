@@ -108,20 +108,72 @@ public class Algoritmos {
         quickSort(v, 0, v.length - 1);
     }
     
+    /**
+     * Ordena de forma estavel os valores do intervalo [1, 100000] do projeto.
+     * Tempo O(n + k) e memoria auxiliar O(n + k), sendo k o maior valor.
+     */
+    public static void countingSort(int[] v) {
+        if (v.length == 0) {
+            return;
+        }
+
+        int maior = 0;
+        for (int valor : v) {
+            if (valor < 1 || valor > 100000) {
+                throw new IllegalArgumentException("Os valores devem estar entre 1 e 100000.");
+            }
+            if (valor > maior) {
+                maior = valor;
+            }
+        }
+
+        int[] contagem = new int[maior + 1];
+        for (int valor : v) {
+            contagem[valor]++;
+        }
+        // A soma acumulada indica o fim do intervalo de cada valor na saida.
+        for (int valor = 1; valor <= maior; valor++) {
+            contagem[valor] += contagem[valor - 1];
+        }
+
+        int[] ordenado = new int[v.length];
+        // Percorrer de tras para frente preserva a ordem dos valores iguais.
+        for (int i = v.length - 1; i >= 0; i--) {
+            int valor = v[i];
+            ordenado[--contagem[valor]] = valor;
+        }
+        System.arraycopy(ordenado, 0, v, 0, v.length);
+    }
+
+    /** Retorna o primeiro indice de x ou -1. Tempo O(n), espaco O(1). */
     public static int buscaLinear(int[] v, int x) {
         for (int i = 0; i < v.length; i++) {
-            if (v[i] == x){
-                 return i;}
+            if (v[i] == x) {
+                return i;
+            }
         }
         return -1;
     }
 
-    // Busca linear recursiva
+    /** Inicia a busca recursiva na primeira posicao do vetor. */
+    public static int buscaLinearRec(int[] v, int x) {
+        return buscaLinearRec(v, x, 0);
+    }
+
+    /**
+     * Retorna o primeiro indice de x a partir de i ou -1.
+     * Tempo e pilha O(n - i); vetores grandes podem causar StackOverflowError.
+     */
     public static int buscaLinearRec(int[] v, int x, int i) {
-        if (i >= v.length){
-             return -1;}
-        if (v[i] == x){
-             return i;}
+        if (i < 0) {
+            throw new IllegalArgumentException("O indice inicial nao pode ser negativo.");
+        }
+        if (i >= v.length) {
+            return -1;
+        }
+        if (v[i] == x) {
+            return i;
+        }
         return buscaLinearRec(v, x, i + 1);
     }
 

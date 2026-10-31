@@ -1,0 +1,31 @@
+algoritmo,tamanho,cenario,amostras,media_ns,status
+CountingSort,50000,aleatorio,20,699245.00,OK
+Arrays.sort,50000,aleatorio,20,3923425.00,OK
+CountingSort,50000,ordenado,20,583755.00,OK
+Arrays.sort,50000,ordenado,20,99830.00,OK
+CountingSort,50000,inverso,20,510990.00,OK
+Arrays.sort,50000,inverso,20,254115.00,OK
+CountingSort,50000,parcial,20,456125.00,OK
+Arrays.sort,50000,parcial,20,2050090.00,OK
+Linear Iterativa,50000,ordenado-alvo-ausente,20,137400.00,OK
+Linear Recursiva,50000,ordenado-alvo-ausente,0,,StackOverflowError
+CountingSort,150000,aleatorio,20,1444180.00,OK
+Arrays.sort,150000,aleatorio,20,10209925.00,OK
+CountingSort,150000,ordenado,20,1076920.00,OK
+Arrays.sort,150000,ordenado,20,231345.00,OK
+CountingSort,150000,inverso,20,609535.00,OK
+Arrays.sort,150000,inverso,20,133340.00,OK
+CountingSort,150000,parcial,20,1103300.00,OK
+Arrays.sort,150000,parcial,20,5981480.00,OK
+Linear Iterativa,150000,ordenado-alvo-ausente,20,39220.00,OK
+Linear Recursiva,150000,ordenado-alvo-ausente,0,,StackOverflowError
+CountingSort,500000,aleatorio,20,6553695.00,OK
+Arrays.sort,500000,aleatorio,20,33611580.00,OK
+CountingSort,500000,ordenado,20,2675780.00,OK
+Arrays.sort,500000,ordenado,20,326030.00,OK
+CountingSort,500000,inverso,20,1905850.00,OK
+Arrays.sort,500000,inverso,20,621800.00,OK
+CountingSort,500000,parcial,20,2633905.00,OK
+Arrays.sort,500000,parcial,20,19116685.00,OK
+Linear Iterativa,500000,ordenado-alvo-ausente,20,108285.00,OK
+Linear Recursiva,500000,ordenado-alvo-ausente,0,,StackOverflowError

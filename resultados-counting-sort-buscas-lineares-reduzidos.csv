@@ -1,0 +1,31 @@
+algoritmo,tamanho,cenario,amostras,media_ns,status
+CountingSort,500,aleatorio,20,329585.00,OK
+Arrays.sort,500,aleatorio,20,8620.00,OK
+CountingSort,500,ordenado,20,78100.00,OK
+Arrays.sort,500,ordenado,20,6870.00,OK
+CountingSort,500,inverso,20,104330.00,OK
+Arrays.sort,500,inverso,20,2905.00,OK
+CountingSort,500,parcial,20,181560.00,OK
+Arrays.sort,500,parcial,20,4635.00,OK
+Linear Iterativa,500,ordenado-alvo-ausente,20,5040.00,OK
+Linear Recursiva,500,ordenado-alvo-ausente,20,27935.00,OK
+CountingSort,1500,aleatorio,20,278040.00,OK
+Arrays.sort,1500,aleatorio,20,73375.00,OK
+CountingSort,1500,ordenado,20,254890.00,OK
+Arrays.sort,1500,ordenado,20,4545.00,OK
+CountingSort,1500,inverso,20,316715.00,OK
+Arrays.sort,1500,inverso,20,6935.00,OK
+CountingSort,1500,parcial,20,228665.00,OK
+Arrays.sort,1500,parcial,20,19960.00,OK
+Linear Iterativa,1500,ordenado-alvo-ausente,20,350.00,OK
+Linear Recursiva,1500,ordenado-alvo-ausente,20,2825.00,OK
+CountingSort,3000,aleatorio,20,375095.00,OK
+Arrays.sort,3000,aleatorio,20,121340.00,OK
+CountingSort,3000,ordenado,20,69735.00,OK
+Arrays.sort,3000,ordenado,20,14955.00,OK
+CountingSort,3000,inverso,20,88060.00,OK
+Arrays.sort,3000,inverso,20,20040.00,OK
+CountingSort,3000,parcial,20,99490.00,OK
+Arrays.sort,3000,parcial,20,78765.00,OK
+Linear Iterativa,3000,ordenado-alvo-ausente,20,655.00,OK
+Linear Recursiva,3000,ordenado-alvo-ausente,20,6575.00,OK
