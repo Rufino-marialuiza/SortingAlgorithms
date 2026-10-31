@@ -3,6 +3,8 @@ package ordenaçao;
 import java.util.Random;
 
 public class Algoritmos {
+    // ALGORITMOS DE ORDENAÇÃO
+
     public static void bubbleSort(int[] vetor) {
         int n = vetor.length;
 
@@ -66,8 +68,7 @@ public class Algoritmos {
 
             int temp = vetor[menor];
 
-            // Desloca os elementos para a direita
-            while (menor > i) {
+            while (menor > i) { // Desloca os elementos para a direita
                 vetor[menor] = vetor[menor - 1];
                 menor--;
             }
@@ -77,17 +78,18 @@ public class Algoritmos {
     }
 	
 	public static void insertion(int[] v) {
-		int n=v.length;
+		int n = v.length;
 		
-		for(int i=1;i<n-1;i++) {
+		for (int i = 1; i < n - 1; i++) {
 			int chave = v[i];
-			int p = i-1;
-			while(p>=0 && v[p]>chave) {
-				v[p+1]=v[p];
+			int p = i - 1;
+
+			while (p >= 0 && v[p] > chave) {
+				v[p+1] = v[p];
 				p--;
 			}
-			v[p+1]=chave;
-			
+
+			v[p+1] = chave;
 		}
 	}
 	
@@ -97,7 +99,7 @@ public class Algoritmos {
         	int meio = inicio + (fim - inicio) / 2;
 
             mergeSort(v, inicio, meio);
-            mergeSort(v, meio+1,fim);
+            mergeSort(v, meio + 1, fim);
             merge(v, inicio, meio, fim);
         }
     }
@@ -168,7 +170,7 @@ public class Algoritmos {
         v[j] = temp;
     }
     
-    public static void quickSortShuffle(int[] v) { //embaralha
+    public static void quickSortShuffle(int[] v) { // Embaralha
         Random rand = new Random();
         
         for (int i = v.length - 1; i > 0; i--) {
@@ -179,6 +181,8 @@ public class Algoritmos {
         }
         quickSort(v, 0, v.length - 1);
     }
+
+    // ALGORITMOS DE BUSCA
     
     public static int buscaLinear(int[] v, int x) {
         for (int i = 0; i < v.length; i++) {
@@ -237,7 +241,5 @@ public class Algoritmos {
             j--;
         }
         return -1;
-    }
-
-        
+    }     
 }

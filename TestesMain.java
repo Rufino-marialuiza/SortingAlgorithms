@@ -37,8 +37,8 @@ public class TestesMain {
         System.out.println("\n--- Cenário: " + nomeCenario + " ---");
 
         String[] nomesAlgoritmos = {
-            "BubbleSort", "SelectionSort", "InsertionSort", 
-            "MergeSort", "QuickSort", "QuickSort+Shuffle", 
+            "BubbleSort", "BubbleSortOtimizado", "SelectionSort", "selectionSortEstavel",
+            "InsertionSort", "MergeSort", "QuickSort", "QuickSort+Shuffle", 
             "CountingSort", "Arrays.sort()"
         };
 
@@ -54,7 +54,9 @@ public class TestesMain {
                 // Executa o algoritmo correspondente
                 switch (alg) {
                     case "BubbleSort": Algoritmos.bubbleSort(copia); break;
+                    case "BubbleSortOtimizado": Algoritmos.bubbleSortOtimizado(copia); break;
                     case "SelectionSort": Algoritmos.selectionSort(copia); break;
+                    case "selectionSortEstavel": Algoritmos.selectionSortEstavel(copia); break;
                     case "InsertionSort": Algoritmos.insertion(copia); break;
                     case "MergeSort": Algoritmos.mergeSort(copia); break;
                     case "QuickSort": Algoritmos.quickSort(copia, 0, copia.length - 1); break;
