@@ -2,7 +2,7 @@
 
 Branch: `codex/counting-sort-buscas-lineares`.
 
-As implementações estão em `Algoritmos.java`, no pacote `ordenaçao` já utilizado pelo projeto. As buscas existentes foram revisadas mantendo as assinaturas utilizadas por `TestesMain`.
+As implementações estão em `Algoritmos.java`. Os arquivos Java ficam na raiz do projeto e usam o pacote padrão (sem declaração `package`), para que a estrutura de pastas corresponda ao pacote e o VS Code consiga resolver as classes. As buscas existentes foram revisadas mantendo as assinaturas utilizadas por `TestesMain`.
 
 | Método | Resultado | Tempo | Memória auxiliar |
 | --- | --- | --- | --- |
@@ -21,7 +21,7 @@ No terminal, a partir da pasta do projeto, com um JDK instalado:
 
 ```powershell
 javac -encoding UTF-8 -d build Algoritmos.java TestesCountingSortBuscasLineares.java
-java -cp build ordenaçao.TestesCountingSortBuscasLineares
+java -cp build TestesCountingSortBuscasLineares
 ```
 
 Os testes verificam vetores vazios, unitários, ordenados, inversos, repetidos, limites do domínio e entradas inválidas. Também comparam o CountingSort com `Arrays.sort` em 100 vetores aleatórios e em um vetor de 500.000 elementos; as buscas são verificadas para elementos presentes e ausentes, incluindo a primeira ocorrência e o índice inicial da recursão.
@@ -29,8 +29,8 @@ Os testes verificam vetores vazios, unitários, ordenados, inversos, repetidos, 
 ## Experimentos
 
 ```powershell
-java -cp build ordenaçao.TestesCountingSortBuscasLineares --experimentos
-java -cp build ordenaçao.TestesCountingSortBuscasLineares --experimentos 500 1500 3000
+java -cp build TestesCountingSortBuscasLineares --experimentos
+java -cp build TestesCountingSortBuscasLineares --experimentos 500 1500 3000
 ```
 
 A primeira chamada usa 50.000, 150.000 e 500.000 elementos. A segunda usa tamanhos menores para permitir medir a busca recursiva com a pilha padrão nesta máquina. É possível fornecer outros três tamanhos positivos. Não misture tamanhos diferentes em uma comparação direta.
