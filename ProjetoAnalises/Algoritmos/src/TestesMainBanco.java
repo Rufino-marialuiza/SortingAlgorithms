@@ -177,6 +177,29 @@ public class TestesMainBanco {
         }
     }
 
+    // Registra todas as medições como StackOverflow
+    private static void salvarTodosOverflows(
+        String tipo,
+        int tamanho,
+        String cenario,
+        String algoritmo,
+        int totalMedicoes
+    ) throws SQLException {
+
+        for (int repeticao = 1; repeticao <= totalMedicoes; repeticao++) {
+
+            salvarResultado(
+                tipo,
+                tamanho,
+                cenario,
+                algoritmo,
+                repeticao,
+                -1,
+                "STACK_OVERFLOW"
+            );
+        }
+    }
+
     private static void mostrarMedia(
         String tipo,
         int tamanho,
@@ -250,11 +273,13 @@ public class TestesMainBanco {
 
             System.out.println("\nTestando: " + alg);
 
+            boolean estouro = false;
+
             for (int i = 0; i < total; i++) {
 
                 int repeticao = i - warmUp + 1;
 
-                // Pula medições já salvas anteriormente
+                // Pula medições já salvas
                 if (i >= warmUp &&
                     resultadoExiste(
                         "ORDENACAO",
@@ -267,52 +292,115 @@ public class TestesMainBanco {
                     continue;
                 }
 
+                // Se já ocorreu estouro, registra as medições restantes
+                if (estouro) {
+
+                    if (i >= warmUp) {
+                        salvarResultado(
+                            "ORDENACAO",
+                            base.length,
+                            nomeCenario,
+                            alg,
+                            repeticao,
+                            -1,
+                            "STACK_OVERFLOW"
+                        );
+                    }
+
+                    continue;
+                }
+
                 int[] copia = Arrays.copyOf(base, base.length);
 
                 long inicio = System.nanoTime();
 
-                // Executa o algoritmo
-                switch (alg) {
+                try {
 
-                    case "BubbleSort":
-                        Algoritmos.bubbleSort(copia);
-                        break;
+                    switch (alg) {
 
-                    case "BubbleSortOtimizado":
-                        Algoritmos.bubbleSortOtimizado(copia);
-                        break;
+                        case "BubbleSort":
+                            Algoritmos.bubbleSort(copia);
+                            break;
 
-                    case "SelectionSort":
-                        Algoritmos.selectionSort(copia);
-                        break;
+                        case "BubbleSortOtimizado":
+                            Algoritmos.bubbleSortOtimizado(copia);
+                            break;
 
-                    case "selectionSortEstavel":
-                        Algoritmos.selectionSortEstavel(copia);
-                        break;
+                        case "SelectionSort":
+                            Algoritmos.selectionSort(copia);
+                            break;
 
-                    case "InsertionSort":
-                        Algoritmos.insertion(copia);
-                        break;
+                        case "selectionSortEstavel":
+                            Algoritmos.selectionSortEstavel(copia);
+                            break;
 
-                    case "MergeSort":
-                        Algoritmos.mergeSort(copia, 0, copia.length - 1);
-                        break;
+                        case "InsertionSort":
+                            Algoritmos.insertion(copia);
+                            break;
 
-                    case "QuickSort":
-                        Algoritmos.quickSort(copia, 0, copia.length - 1);
-                        break;
+                        case "MergeSort":
+                            Algoritmos.mergeSort(copia, 0, copia.length - 1);
+                            break;
 
-                    case "QuickSort+Shuffle":
-                        Algoritmos.quickSortShuffle(copia);
-                        break;
+                        case "QuickSort":
+                            Algoritmos.quickSort(copia, 0, copia.length - 1);
+                            break;
 
-                    case "CountingSort":
-                        Algoritmos.countingSort(copia);
-                        break;
+                        case "QuickSort+Shuffle":
+                            Algoritmos.quickSortShuffle(copia);
+                            break;
 
-                    case "Arrays.sort()":
-                        Arrays.sort(copia);
-                        break;
+                        case "CountingSort":
+                            Algoritmos.countingSort(copia);
+                            break;
+
+                        case "Arrays.sort()":
+                            Arrays.sort(copia);
+                            break;
+                    }
+
+                } catch (StackOverflowError e) {
+
+                    estouro = true;
+
+                    System.out.println(
+                        "STACK OVERFLOW: " + alg +
+                        " no cenário " + nomeCenario
+                    );
+
+                    if (i >= warmUp) {
+
+                        salvarResultado(
+                            "ORDENACAO",
+                            base.length,
+                            nomeCenario,
+                            alg,
+                            repeticao,
+                            -1,
+                            "STACK_OVERFLOW"
+                        );
+
+                        System.out.println(
+                            "Execução " + repeticao +
+                            "/20 salva com tempo -1."
+                        );
+
+                    } else {
+
+                        salvarTodosOverflows(
+                            "ORDENACAO",
+                            base.length,
+                            nomeCenario,
+                            alg,
+                            total - warmUp
+                        );
+
+                        System.out.println(
+                            "As 20 medições foram registradas como STACK_OVERFLOW."
+                        );
+                    }
+
+                    continue;
                 }
 
                 long fim = System.nanoTime();
@@ -328,7 +416,6 @@ public class TestesMainBanco {
                     );
                 }
 
-                // Salva apenas as 20 medições válidas
                 if (i >= warmUp) {
 
                     salvarResultado(
@@ -347,7 +434,6 @@ public class TestesMainBanco {
                 }
             }
 
-            // Consulta a média diretamente no banco
             mostrarMedia(
                 "ORDENACAO",
                 base.length,
@@ -403,6 +489,24 @@ public class TestesMainBanco {
                     continue;
                 }
 
+                // Se já ocorreu estouro, registra as medições restantes
+                if (estouro) {
+
+                    if (i >= warmUp) {
+                        salvarResultado(
+                            "BUSCA",
+                            ordenado.length,
+                            "Elemento ausente (-1)",
+                            alg,
+                            repeticao,
+                            -1,
+                            "STACK_OVERFLOW"
+                        );
+                    }
+
+                    continue;
+                }
+
                 int res = -2;
 
                 long inicio = System.nanoTime();
@@ -446,6 +550,10 @@ public class TestesMainBanco {
 
                     estouro = true;
 
+                    System.out.println(
+                        "STACK OVERFLOW: " + alg
+                    );
+
                     if (i >= warmUp) {
 
                         salvarResultado(
@@ -454,16 +562,31 @@ public class TestesMainBanco {
                             "Elemento ausente (-1)",
                             alg,
                             repeticao,
-                            0,
+                            -1,
                             "STACK_OVERFLOW"
+                        );
+
+                        System.out.println(
+                            "Execução " + repeticao +
+                            "/20 salva com tempo -1."
+                        );
+
+                    } else {
+
+                        salvarTodosOverflows(
+                            "BUSCA",
+                            ordenado.length,
+                            "Elemento ausente (-1)",
+                            alg,
+                            total - warmUp
+                        );
+
+                        System.out.println(
+                            "As 20 medições foram registradas como STACK_OVERFLOW."
                         );
                     }
 
-                    System.out.println(
-                        "StackOverflowError na execução " + (i + 1)
-                    );
-
-                    break;
+                    continue;
                 }
 
                 long fim = System.nanoTime();
@@ -497,23 +620,13 @@ public class TestesMainBanco {
                 }
             }
 
-            if (estouro) {
-
-                System.out.println(
-                    "Algoritmo: " + alg +
-                    " | StackOverflowError (n = " + ordenado.length + ")"
-                );
-
-            } else {
-
-                mostrarMedia(
-                    "BUSCA",
-                    ordenado.length,
-                    "Elemento ausente (-1)",
-                    alg,
-                    total - warmUp
-                );
-            }
+            mostrarMedia(
+                "BUSCA",
+                ordenado.length,
+                "Elemento ausente (-1)",
+                alg,
+                total - warmUp
+            );
         }
     }
 

@@ -75,35 +75,35 @@ public class Algoritmos {
         }
     }
 	
-	public static void insertion(int[] v) {
-		int n = v.length;
-		
-		for (int i = 1; i < n - 1; i++) {
-			int chave = v[i];
-			int p = i - 1;
+    public static void insertion(int[] v) {
+        int n = v.length;
 
-			while (p >= 0 && v[p] > chave) {
-				v[p+1] = v[p];
-				p--;
-			}
+        for (int i = 1; i < n; i++) {
+            int chave = v[i];
+            int p = i - 1;
 
-			v[p+1] = chave;
-		}
-	}
+            while (p >= 0 && v[p] > chave) {
+                v[p + 1] = v[p];
+                p--;
+            }
+
+            v[p + 1] = chave;
+        }
+    }
 	
 	public static void mergeSort(int[] v, int inicio, int fim) {
-        if (v.length == 1) return;
-        else {
-        	int meio = inicio + (fim - inicio) / 2;
+        if (inicio >= fim) return;
 
-            mergeSort(v, inicio, meio);
-            mergeSort(v, meio + 1, fim);
-            merge(v, inicio, meio, fim);
-        }
+        int meio = inicio + (fim - inicio) / 2;
+
+        mergeSort(v, inicio, meio);
+        mergeSort(v, meio + 1, fim);
+
+        merge(v, inicio, meio, fim);
     }
 
     private static void merge(int[] v, int inicio, int meio, int fim) {
-    	int n1 = meio - inicio + 1;
+        int n1 = meio - inicio + 1;
         int n2 = fim - meio;
 
         int[] esquerda = new int[n1];
@@ -112,11 +112,13 @@ public class Algoritmos {
         for (int i = 0; i < n1; i++) {
             esquerda[i] = v[inicio + i];
         }
+
         for (int j = 0; j < n2; j++) {
             direita[j] = v[meio + 1 + j];
         }
 
         int i = 0, j = 0, k = inicio;
+
         while (i < n1 && j < n2) {
             if (esquerda[i] <= direita[j]) {
                 v[k++] = esquerda[i++];
@@ -134,30 +136,32 @@ public class Algoritmos {
         }
     }
     
-    
-    public static void quickSort (int[] v, int left, int right) {
+    public static void quickSort(int[] v, int left, int right) {
         if (left < right) {
             int pivot = partition(v, left, right);
+
             quickSort(v, left, pivot - 1);
             quickSort(v, pivot + 1, right);
         }
     }
 
-    private static int partition (int[] v, int left, int right) {
+    private static int partition(int[] v, int left, int right) {
         int p = v[left];
         int i = left + 1;
         int j = right;
-        
+
         while (i <= j) {
-            if (v[i] <= p) {
+            if (i <= right && v[i] <= p) {
                 i++;
-            } else if (v[j] > p) {
+            } else if (j >= left && v[j] > p) {
                 j--;
-            } else {
+            } else if (i <= j) {
                 swap(v, i, j);
+                i++;
+                j--;
             }
         }
-        
+
         swap(v, left, j);
         return j;
     }
