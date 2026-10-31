@@ -1,10 +1,8 @@
-package ordenaçao;
-
 import java.util.Arrays;
 import java.util.Random;
 
 public class TestesMain {
-
+    
 	public static void main (String[] args) {
 		int[] tamanhos = {50000, 150000, 500000};
         int totalExecucoes = 25;
