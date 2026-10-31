@@ -145,7 +145,7 @@ public class Algoritmos {
         }
     }
 
-    private static int partition(int[] v, int left, int right) {
+    private static int partition (int[] v, int left, int right) {
         int p = v[left];
         int i = left + 1;
         int j = right;

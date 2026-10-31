@@ -58,7 +58,7 @@ public class TestesMain {
                     case "SelectionSort": Algoritmos.selectionSort(copia); break;
                     case "selectionSortEstavel": Algoritmos.selectionSortEstavel(copia); break;
                     case "InsertionSort": Algoritmos.insertion(copia); break;
-                    case "MergeSort": Algoritmos.mergeSort(copia); break;
+                    case "MergeSort": Algoritmos.mergeSort(copia, 0, copia.length - 1); break;
                     case "QuickSort": Algoritmos.quickSort(copia, 0, copia.length - 1); break;
                     case "QuickSort+Shuffle": Algoritmos.quickSortShuffle(copia); break;
                     case "CountingSort": Algoritmos.countingSort(copia); break;
