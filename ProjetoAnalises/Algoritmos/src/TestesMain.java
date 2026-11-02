@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.Random;
 
+// Esse não foi o código realmente usado!!
+
 public class TestesMain {
     
 	public static void main (String[] args) {
@@ -42,6 +44,8 @@ public class TestesMain {
 
         for (String alg : nomesAlgoritmos) {
             long somaTempos = 0;
+
+            @SuppressWarnings("unused")
             int validacoesComSucesso = 0;
 
             for (int i = 0; i < total; i++) {
